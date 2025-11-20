@@ -654,6 +654,87 @@ class TestElInflection(TestCase):
         ]
         self.mktest_form_no_raw_tags(raw, expected)
 
+    def test_prefix_inflection(self) -> None:
+        # https://el.wiktionary.org/wiki/-γράφος
+        raw = """
+{| style="clear%3Aright%3B+float%3Aright%3B+margin-left%3A0.5em%3B+margin-bottom%3A0.5em%3Bbackground%3A%23ffffff%3B+color%3A%23000000%3B+border%3A1px+solid%23a1bdea%3B+text-align%3Aright%3B" rules="none" border="1" cellpadding="3" cellspacing="0"
+|-
+! style="background%3A%23a1bdea%3B+border-right%3A1px+solid+%23c1d3f1%3B+text-align%3Acenter%3B+font-size%3A90%25%3B" align="center" | &darr;&nbsp;''πτώσεις''
+! style="background%3A%23a1bdea%3B+border-right%3A1px+solid+%23c1d3f1%3B" colspan="2" align="center" | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[[ενικός|<span title="%CE%B5%CE%BD%CE%B9%CE%BA%CF%8C%CF%82+%CE%B1%CF%81%CE%B9%CE%B8%CE%BC%CF%8C%CF%82" style="color%3Ablack%3B">'''''ενικός'''''</span>]]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+! style="background%3A%23a1bdea%3B" colspan="2" align="center" | &nbsp;&nbsp;[[πληθυντικός|<span title="%CF%80%CE%BB%CE%B7%CE%B8%CF%85%CE%BD%CF%84%CE%B9%CE%BA%CF%8C%CF%82+%CE%B1%CF%81%CE%B9%CE%B8%CE%BC%CF%8C%CF%82" style="color%3Ablack%3B">'''''πληθυντικός'''''</span>]]&nbsp;&nbsp;
+|-
+| style="background%3A%23d5e2f6%3B+border-bottom%3A1px+solid+%23eaf0fa%3B+text-align%3Aright%3B+font-size%3A90%25%3B" | [[ονομαστική|<span title="%CE%BF%CE%BD%CE%BF%CE%BC%CE%B1%CF%83%CF%84%CE%B9%CE%BA%CE%AE+%CF%80%CF%84%CF%8E%CF%83%CE%B7" style="color%3Ablack%3B">'''''ονομαστική'''''</span>]]
+| style="border-bottom%3A1px+solid+%23eaf0fa%3B" align="center" | [[ο|<span style="color%3A%23002000%3B+font-weight%3Anormal%3B">ο</span>]]/[[η|<span style="color%3A%23002000%3B+font-weight%3Anormal%3B">η</span>]]
+| style="border-bottom%3A1px+solid+%23eaf0fa%3B+border-right%3A1px+solid+%23eaf0fa%3B" align="left" | [[-γράφος|<span style="color%3A%23002000%3B+font-weight%3Anormal%3B">-γράφ</span><span style="color%3A%23EB0000%3B+font-weight%3Anormal%3B">ος</span>]]
+| style="border-bottom%3A1px+solid+%23eaf0fa%3B" align="center" | [[οι|<span style="color%3A%23002000%3B+font-weight%3Anormal%3B">οι</span>]]
+| style="border-bottom%3A1px+solid+%23eaf0fa%3B" align="left" | [[-γράφοι|<span style="color%3A%23002000%3B+font-weight%3Anormal%3B">-γράφ</span><span style="color%3A%23EB0000%3B+font-weight%3Anormal%3B">οι</span>]]
+|-
+| style="background%3A%23d5e2f6%3B+border-bottom%3A1px+solid+%23eaf0fa%3B+text-align%3Aright%3B+font-size%3A90%25%3B" | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[[γενική|<span title="%CE%B3%CE%B5%CE%BD%CE%B9%CE%BA%CE%AE+%CF%80%CF%84%CF%8E%CF%83%CE%B7" style="color%3Ablack%3B">'''''γενική'''''</span>]]
+| style="border-bottom%3A1px+solid+%23eaf0fa%3B" align="center" | <span style="white-space%3Anowrap">[[του|<span style="color%3A%23002000%3B+font-weight%3Anormal%3B">του</span>]]/[[της|<span style="color%3A%23002000%3B+font-weight%3Anormal%3B">της</span>]]</span>
+| style="border-bottom%3A1px+solid+%23eaf0fa%3B+border-right%3A1px+solid+%23eaf0fa%3B" align="left" | [[-γράφου|<span style="color%3A%23002000%3B+font-weight%3Anormal%3B">-γράφ</span><span style="color%3A%23EB0000%3B+font-weight%3Anormal%3B">ου</span>]]
+| style="border-bottom%3A1px+solid+%23eaf0fa%3B" align="center" | [[των|<span style="color%3A%23002000%3B+font-weight%3Anormal%3B">των</span>]]
+| style="border-bottom%3A1px+solid+%23eaf0fa%3B" align="left" | [[-γράφων|<span style="color%3A%23002000%3B+font-weight%3Anormal%3B">-γράφ</span><span style="color%3A%23EB0000%3B+font-weight%3Anormal%3B">ων</span>]]
+|-
+| style="background%3A%23d5e2f6%3B+border-bottom%3A1px+solid+%23eaf0fa%3B+text-align%3Aright%3B+font-size%3A90%25%3B" | &nbsp;&nbsp;&nbsp;&nbsp;[[αιτιατική|<span title="%CE%B1%CE%B9%CF%84%CE%B9%CE%B1%CF%84%CE%B9%CE%BA%CE%AE+%CF%80%CF%84%CF%8E%CF%83%CE%B7" style="color%3Ablack%3B">'''''αιτιατική'''''</span>]]
+| style="border-bottom%3A1px+solid+%23eaf0fa%3B" align="center" | <span style="white-space%3Anowrap">[[τον|<span style="color%3A%23002000%3B+font-weight%3Anormal%3B">τον</span>]]/[[την|<span style="color%3A%23002000%3B+font-weight%3Anormal%3B">τη(ν)</span>]]</span>
+| style="border-bottom%3A1px+solid+%23eaf0fa%3B+border-right%3A1px+solid+%23eaf0fa%3B" align="left" | [[-γράφο|<span style="color%3A%23002000%3B+font-weight%3Anormal%3B">-γράφ</span><span style="color%3A%23EB0000%3B+font-weight%3Anormal%3B">ο</span>]]
+| style="border-bottom%3A1px+solid+%23eaf0fa%3B" align="center" | <span style="white-space%3Anowrap">[[τους|<span style="color%3A%23002000%3B+font-weight%3Anormal%3B">τους</span>]]/[[τις|<span style="color%3A%23002000%3B+font-weight%3Anormal%3B">τις</span>]]</span>
+| style="border-bottom%3A1px+solid+%23eaf0fa%3B" align="left" | [[-γράφους|<span style="color%3A%23002000%3B+font-weight%3Anormal%3B">-γράφ</span><span style="color%3A%23EB0000%3B+font-weight%3Anormal%3B">ους</span>]]
+|-
+| style="background%3A%23d5e2f6%3B+text-align%3Aright%3B" | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[[κλητική|<span title="%CE%BA%CE%BB%CE%B7%CF%84%CE%B9%CE%BA%CE%AE+%CF%80%CF%84%CF%8E%CF%83%CE%B7" style="color%3Ablack%3B+font-size%3A90%25%3B">'''''κλητική'''''</span>]]
+| align="center" |
+| style="border-right%3A1px+solid+%23eaf0fa%3B" align="left" | [[-γράφε|<span style="color%3A%23002000%3B+font-weight%3Anormal%3B">-γράφ</span><span style="color%3A%23EB0000%3B+font-weight%3Anormal%3B">ε</span>]]
+| align="center" |
+| align="left" | [[-γράφοι|<span style="color%3A%23002000%3B+font-weight%3Anormal%3B">-γράφ</span><span style="color%3A%23EB0000%3B+font-weight%3Anormal%3B">οι</span>]]
+|-
+| colspan="5" align="right" style="text-align%3Aright%3B+background%3A%23eaf0fa%3B+font-size%3A70%25%3B+line-height%3A100%25%3B" | [[:Κατηγορία:Ουσιαστικά που κλίνονται όπως το 'ζωγράφος' (νέα ελληνικά)|Κατηγορία]]  όπως «[[Παράρτημα:Ουσιαστικά (νέα ελληνικά)/κοινά#ζωγράφος|ζωγράφος]]» - [[Παράρτημα:Ουσιαστικά (νέα ελληνικά)|<span title="%CE%A0%CE%B1%CF%81%CE%AC%CF%81%CF%84%CE%B7%CE%BC%CE%B1%3A%CE%9F%CF%85%CF%83%CE%B9%CE%B1%CF%83%CF%84%CE%B9%CE%BA%CE%AC">Παράρτημα:Ουσιαστικά</span>]]
+|}
+"""
+        expected = [
+            {"tags": ["inflection-template"]},
+            {
+                "form": "-γράφος",
+                "tags": ["singular", "nominative"],
+                "raw_tags": ["ενικός", "ονομαστική"],
+            },
+            {
+                "form": "-γράφοι",
+                "tags": ["nominative", "plural"],
+                "raw_tags": ["ονομαστική", "πληθυντικός"],
+            },
+            {
+                "form": "-γράφου",
+                "tags": ["genitive", "singular"],
+                "raw_tags": ["γενική", "ενικός"],
+            },
+            {
+                "form": "-γράφων",
+                "tags": ["genitive", "plural"],
+                "raw_tags": ["γενική", "πληθυντικός"],
+            },
+            {
+                "form": "-γράφο",
+                "tags": ["accusative", "singular"],
+                "raw_tags": ["αιτιατική", "ενικός"],
+            },
+            {
+                "form": "-γράφους",
+                "tags": ["accusative", "plural"],
+                "raw_tags": ["αιτιατική", "πληθυντικός"],
+            },
+            {
+                "form": "-γράφε",
+                "tags": ["singular", "vocative"],
+                "raw_tags": ["ενικός", "κλητική"],
+            },
+            {
+                "form": "-γράφοι",
+                "tags": ["vocative", "plural"],
+                "raw_tags": ["κλητική", "πληθυντικός"],
+            },
+        ]
+        self.mktest_form_no_raw_tags(raw, expected)
+
     def test_el_conjugation_table(self) -> None:
         # Section of https://el.wiktionary.org/wiki/πίνω
         # {{el-κλίσ-'μπαίνω'|θαορ=ήπι|θμελλ=πι}}
