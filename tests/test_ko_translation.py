@@ -36,7 +36,7 @@ class TestKoTranslation(TestCase):
 |
 * 노비알(nov): [[hunde]] ((수컷/암컷) 개)
 * 라트갈레어(bat-ltg): [[bārns]] (남성)
-* 노르만어(nrm): (저지어); [[même]] (남성/여성)
+* 노르만어(nrf): (저지어); [[même]] (남성/여성)
 }}""",
         )
         self.assertEqual(
@@ -65,7 +65,7 @@ class TestKoTranslation(TestCase):
                     "word": "même",
                     "tags": ["masculine", "feminine"],
                     "lang": "노르만어",
-                    "lang_code": "nrm",
+                    "lang_code": "nrf",
                 },
             ],
         )

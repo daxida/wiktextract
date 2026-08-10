@@ -613,12 +613,12 @@ class TestEnDescendant(TestCase):
                                         },
                                         {
                                             "lang": "Norman",
-                                            "lang_code": "nrm",
+                                            "lang_code": "nrf",
                                             "word": "aveir",
                                         },
                                         {
                                             "lang": "Norman",
-                                            "lang_code": "nrm",
+                                            "lang_code": "nrf",
                                             "word": "aver",
                                         },
                                         {
@@ -675,12 +675,12 @@ class TestEnDescendant(TestCase):
                                         },
                                         {
                                             "lang": "Norman",
-                                            "lang_code": "nrm",
+                                            "lang_code": "nrf",
                                             "word": "aveir",
                                         },
                                         {
                                             "lang": "Norman",
-                                            "lang_code": "nrm",
+                                            "lang_code": "nrf",
                                             "word": "aver",
                                         },
                                         {
@@ -738,12 +738,12 @@ class TestEnDescendant(TestCase):
                                         },
                                         {
                                             "lang": "Norman",
-                                            "lang_code": "nrm",
+                                            "lang_code": "nrf",
                                             "word": "aveir",
                                         },
                                         {
                                             "lang": "Norman",
-                                            "lang_code": "nrm",
+                                            "lang_code": "nrf",
                                             "word": "aver",
                                         },
                                         {
@@ -801,12 +801,12 @@ class TestEnDescendant(TestCase):
                                         },
                                         {
                                             "lang": "Norman",
-                                            "lang_code": "nrm",
+                                            "lang_code": "nrf",
                                             "word": "aveir",
                                         },
                                         {
                                             "lang": "Norman",
-                                            "lang_code": "nrm",
+                                            "lang_code": "nrf",
                                             "word": "aver",
                                         },
                                         {
