@@ -258,7 +258,13 @@ def process_conj_link_node(
         and len(page_data[-2].forms) > 0
         and page_data[-2].forms[-1].source == conj_title
     ):
-        page_data[-1].forms = page_data[-2].forms
+        if "canonical" in page_data[-2].forms[0].tags:
+            # An earlier weird head word, like "hodit se" reflexive form
+            # in hodit/Czech, should not override a later head form, either
+            # another "canonical" entry or a default nothing.
+            page_data[-1].forms.extend(page_data[-2].forms[1:])
+        else:
+            page_data[-1].forms.extend(page_data[-2].forms)
     elif conj_title.startswith("Conjugaison:"):
         extract_conjugation(wxr, page_data[-1], conj_title)
     elif conj_title.startswith("Annexe:Déclinaison en"):
