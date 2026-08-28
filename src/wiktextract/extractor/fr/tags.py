@@ -2,7 +2,7 @@
 # https://fr.wiktionary.org/wiki/Annexe:Glossaire_grammatical
 # List of templates:
 # https://fr.wiktionary.org/wiki/Wiktionnaire:Liste_de_tous_les_modèles
-from .models import WordEntry
+from .models import Linkage, WordEntry
 from .topics import SLANG_TOPICS, TOPIC_TAGS
 
 # https://en.wikipedia.org/wiki/Grammatical_gender
@@ -580,7 +580,7 @@ def _append(container: list[str], value: str | list[str]) -> None:
                 container.append(t)
 
 
-def translate_raw_tags(data: WordEntry) -> WordEntry:
+def translate_raw_tags(data: WordEntry | Linkage) -> WordEntry:
     raw_tags = []
     for raw_tag in data.raw_tags:
         raw_tag_lower = raw_tag.lower()

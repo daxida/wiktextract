@@ -3,7 +3,7 @@ from wikitextprocessor.parser import HTMLNode, NodeKind, TemplateNode, WikiNode
 from ...page import clean_node
 from ...wxr_context import WiktextractContext
 from .conjugation import extract_conjugation, extract_declension_page
-from .models import Form, Sound, WordEntry
+from .models import Form, Linkage, Sound, WordEntry
 from .pronunciation import (
     ASPIRATED_H_TEMPLATES,
     PRON_TEMPLATES,
@@ -30,7 +30,11 @@ def extract_form_line(
 
     pre_template_name = ""
     first_bold = True
+    skip_iterations = 0
     for index, node in enumerate(nodes):
+        if skip_iterations > 0:
+            skip_iterations -= 1
+            continue
         if isinstance(node, TemplateNode):
             if node.template_name in IGNORE_TEMPLATES:
                 continue
@@ -105,8 +109,16 @@ def extract_form_line(
         ):
             process_form_line_bold_node(wxr, node, page_data[-1])
             first_bold = False
+        elif isinstance(node, str) and "(" in node:
+            skip_iterations, forms, related = handle_parens(
+                wxr,
+                nodes[index:],  # including this node with the "("
+            )
+            # No code for forms data implemented yet
+            # page_data[-1].forms.extend(forms)
+            page_data[-1].related.extend(related)
 
-        translate_raw_tags(page_data[-1])
+    translate_raw_tags(page_data[-1])
 
 
 def process_equiv_pour_template(
@@ -299,3 +311,50 @@ def process_form_line_bold_node(
         word_entry.original_title = wxr.wtp.title
     elif bold_str not in [wxr.wtp.title, ""]:
         word_entry.forms.append(Form(form=bold_str, tags=["canonical"]))
+
+
+def handle_parens(
+    wxr: WiktextractContext,
+    nodes: list[WikiNode | str],
+) -> tuple[int, list[Form], list[Linkage]]:
+    # Scan the line with a parenthesized block with a colon in it, like
+    # (imperfectif : posílat), and handle that; return number of nodes
+    # that the main loop should skip, if they've been processed
+    # here already, and the contents extracted.
+    end_paren = False
+    colon_i: None | int = None
+    for i, node in enumerate(nodes):
+        if isinstance(node, str):
+            stripped = node.strip()
+            if stripped.endswith(":"):
+                colon_i = i
+            if stripped.endswith(")"):
+                end_paren = True
+                break
+
+    if colon_i is None:
+        # We did not find a sensible colon
+        return 0, [], []
+
+    if not end_paren:
+        wxr.wtp.warning(
+            f"Did not find sensible end-paren? "
+            f"Start-paren context {nodes[0:2]=}",
+            sortid="form_line/handle_parens",
+        )
+        return 0, [], []
+
+    before = nodes[: colon_i + 1]
+    after = nodes[colon_i + 1 : i]
+
+    raw_tag = clean_node(wxr, None, before).strip(" \n(:")
+    target = clean_node(wxr, None, after).strip(" \n)")
+
+    # Currently implemented only detecting "related" words, like
+    # poslat/czech
+    if raw_tag and target:
+        rel = Linkage(raw_tags=[raw_tag], word=target)
+        translate_raw_tags(rel)
+        return i, [], [rel]
+
+    return 0, [], []
