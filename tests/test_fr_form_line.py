@@ -278,3 +278,19 @@ class TestFormLine(TestCase):
 # {{lexique|Internet|conv}} {{lien|cœur|fr|nom|dif=Cœur}}.""",
         )
         self.assertEqual(page_data[0]["word"], "<3")
+
+    def test_czech_linkage(self):
+        # Issue #1699
+        page_data = parse_page(
+            self.wxr,
+            "poslat",
+            """== {{langue|cs}} ==
+=== {{S|verbe|cs}} ===
+'''poslat''' {{pron|pɔslat|cs}} {{perfectif|cs}} (''imperfectif'' : [[posílat]]) {{conjugaison|cs}} test
+# [[envoyer|Envoyer]].
+""",
+        )
+        self.assertEqual(
+            page_data[0]["related"],
+            [{'tags': ['imperfective'], 'word': 'posílat'}],
+        )
