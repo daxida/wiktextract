@@ -290,7 +290,6 @@ class TestFormLine(TestCase):
 # [[envoyer|Envoyer]].
 """,
         )
-        print(page_data[0])
         self.assertEqual(
             page_data[0]["related"],
             [{'tags': ['imperfective'], 'word': 'posílat'}],

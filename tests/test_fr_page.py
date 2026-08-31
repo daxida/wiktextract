@@ -237,3 +237,38 @@ note
                 }
             ],
         )
+
+    def test_weird_canonicals_before_normal_main_heads(self):
+        # see issue #1698
+        # If we have a distinct "canonical" form like "hodit se", it should
+        # not pollute other entries.
+        page_data = parse_page(
+            self.wxr,
+            "hodit",
+            """== {{langue|cs}} ==
+=== {{S|verbe|cs|num=1}} ===
+'''hodit se''' {{pron|ɦɔʄɪt͡sɛ|cs}} {{prnl|cs}} {{imperfectif|cs}} {{conjugaison|cs}}
+# [[convenir#fr|Convenir]], s'[[accorder]].
+
+=== {{S|verbe|cs|num=2}} ===
+'''hodit foo''' {{pron|ɦɔɟɪt|cs}} {{perfectif|cs}} (''imperfectif'' : [[házet]]) {{conjugaison|cs}}
+# [[jeter|Jeter]], [[projeter]], [[envoyer]].
+
+=== {{S|verbe|cs|num=3}} ===
+'''hodit''' {{pron|ɦɔɟɪt|cs}} {{perfectif|cs}} (''imperfectif'' : [[házet]]) {{conjugaison|cs}}
+# [[jeter|Jeter]], [[projeter]], [[envoyer]].
+""",
+        )
+        self.assertEqual(len(page_data), 3)
+        forms0, forms1 = (
+            page_data[0]["forms"],
+            page_data[1]["forms"],
+        )
+        self.assertEqual(len(forms0), 1)
+        self.assertEqual(forms0[0]["form"], "hodit se")
+        self.assertEqual(len(forms1), 1)
+        self.assertEqual(forms1[0]["form"], "hodit foo")
+        # For this test, page_data[1] doesn't have any forms data, but
+        # usually the parser would populate all of these entries with
+        # stuff from {{conjugaison}} links.
+        self.assertFalse("forms" in page_data[2])
