@@ -3470,6 +3470,7 @@ infl_map: dict[str, InflMapNode] = {
     "Caritive": "caritive",
     "Gerund & Past participle": ["gerund", "past participle"],
     "Pronoun": "",
+    "Demonstrative pronouns": "",  # esto/Spanish/pron
     "nominative genitive instrumental": "nominative genitive instrumental",
     "dative adverbial": "dative adverbial",
     "♂": "masculine",

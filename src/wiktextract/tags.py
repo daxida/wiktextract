@@ -5716,7 +5716,7 @@ valid_tags = {
     "masculine-usually": "gender",  # m/f, but usually masculine
     "material": "misc",
     "matronymic": "misc",
-    "medial": "misc",
+    "medial": "referent",  # Between proximal and distal (esto/Spanish)
     "mediopassive": "voice",
     "meliorative": "misc",  # XXX See essere/Italian/Noun word head
     "metaphoric": "misc",
