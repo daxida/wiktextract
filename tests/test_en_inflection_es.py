@@ -2883,3 +2883,190 @@ class InflTests(unittest.TestCase):
             ],
         }
         self.assertEqual(expected, ret)
+
+    def test_Spanish_pron1(self):
+        # Demonstrative pronouns: each column is a distinct degree of
+        # deixis, so "ése" must be medial only -- not medial + proximal.
+        ret = self.xinfl("esto", "Spanish", "pron", "Declension", """
+{| class="wikitable inflection-table" style="text-align:center;"
+|-
+! colspan="2" rowspan="2" |
+! colspan="3" | Demonstrative pronouns
+|-
+! proximal
+! medial
+! distal
+|-
+! rowspan="3" | singular
+! masculine
+| <span class="Latn" lang="es">[[:éste#Spanish|éste]]</span>
+| <span class="Latn" lang="es">[[:ése#Spanish|ése]]</span>
+| <span class="Latn" lang="es">[[:aquél#Spanish|aquél]]</span>
+|-
+! feminine
+| <span class="Latn" lang="es">[[:ésta#Spanish|ésta]]</span>
+| <span class="Latn" lang="es">[[:ésa#Spanish|ésa]]</span>
+| <span class="Latn" lang="es">[[:aquélla#Spanish|aquélla]]</span>
+|-
+! neuter
+| <span class="Latn" lang="es">[[:esto#Spanish|esto]]</span>
+| <span class="Latn" lang="es">[[:eso#Spanish|eso]]</span>
+| <span class="Latn" lang="es">[[:aquello#Spanish|aquello]]</span>
+|-
+! rowspan="2" | plural
+! masculine
+| <span class="Latn" lang="es">[[:éstos#Spanish|éstos]]</span>
+| <span class="Latn" lang="es">[[:ésos#Spanish|ésos]]</span>
+| <span class="Latn" lang="es">[[:aquéllos#Spanish|aquéllos]]</span>
+|-
+! feminine
+| <span class="Latn" lang="es">[[:éstas#Spanish|éstas]]</span>
+| <span class="Latn" lang="es">[[:ésas#Spanish|ésas]]</span>
+| <span class="Latn" lang="es">[[:aquéllas#Spanish|aquéllas]]</span>
+|}
+""")
+        expected = {
+            "forms": [
+              {
+                  "form": "no-table-tags",
+                  "source": "Declension",
+                  "tags": ["table-tags"],
+              },
+              {
+                  "form": "éste",
+                  "source": "Declension",
+                  "tags": [
+                      "masculine",
+                      "proximal",
+                      "singular"
+                  ],
+              },
+              {
+                  "form": "ése",
+                  "source": "Declension",
+                  "tags": [
+                      "masculine",
+                      "medial",
+                      "singular"
+                  ],
+              },
+              {
+                  "form": "aquél",
+                  "source": "Declension",
+                  "tags": [
+                      "distal",
+                      "masculine",
+                      "singular"
+                  ],
+              },
+              {
+                  "form": "ésta",
+                  "source": "Declension",
+                  "tags": [
+                      "feminine",
+                      "proximal",
+                      "singular"
+                  ],
+              },
+              {
+                  "form": "ésa",
+                  "source": "Declension",
+                  "tags": [
+                      "feminine",
+                      "medial",
+                      "singular"
+                  ],
+              },
+              {
+                  "form": "aquélla",
+                  "source": "Declension",
+                  "tags": [
+                      "distal",
+                      "feminine",
+                      "singular"
+                  ],
+              },
+              {
+                  "form": "esto",
+                  "source": "Declension",
+                  "tags": [
+                      "neuter",
+                      "proximal",
+                      "singular"
+                  ],
+              },
+              {
+                  "form": "eso",
+                  "source": "Declension",
+                  "tags": [
+                      "medial",
+                      "neuter",
+                      "singular"
+                  ],
+              },
+              {
+                  "form": "aquello",
+                  "source": "Declension",
+                  "tags": [
+                      "distal",
+                      "neuter",
+                      "singular"
+                  ],
+              },
+              {
+                  "form": "éstos",
+                  "source": "Declension",
+                  "tags": [
+                      "masculine",
+                      "plural",
+                      "proximal"
+                  ],
+              },
+              {
+                  "form": "ésos",
+                  "source": "Declension",
+                  "tags": [
+                      "masculine",
+                      "medial",
+                      "plural"
+                  ],
+              },
+              {
+                  "form": "aquéllos",
+                  "source": "Declension",
+                  "tags": [
+                      "distal",
+                      "masculine",
+                      "plural"
+                  ],
+              },
+              {
+                  "form": "éstas",
+                  "source": "Declension",
+                  "tags": [
+                      "feminine",
+                      "plural",
+                      "proximal"
+                  ],
+              },
+              {
+                  "form": "ésas",
+                  "source": "Declension",
+                  "tags": [
+                      "feminine",
+                      "medial",
+                      "plural"
+                  ],
+              },
+              {
+                  "form": "aquéllas",
+                  "source": "Declension",
+                  "tags": [
+                      "distal",
+                      "feminine",
+                      "plural"
+                  ],
+              },
+            ],
+        }
+        self.assertEqual(expected, ret)
